@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import { Die } from './Die';
 // nanoid- package for unique id
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 import Confetti from 'react-confetti'
 
 function allNewDice() {
@@ -28,7 +28,6 @@ function App() {
   const dices = dice.map(die => <Die key={die.id} value={die.value} isHeld={die.isHeld} holdDice={() => holdDice(die.id)} />)
 
   function rollNewDice() {
-
     const newDices = (tenzies) ? (allNewDice) : (dice.map(die => die.isHeld ? die : { ...die, value: Math.ceil(Math.random() * 6) }))
     setTenzies(tenzies ? !tenzies : tenzies)
     setDice(newDices)
