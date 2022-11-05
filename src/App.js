@@ -25,7 +25,14 @@ function App() {
   const [dice, setDice] = useState(allNewDice)
   const [tenzies, setTenzies] = useState(false)
 
-  const dices = dice.map(die => <Die key={die.id} value={die.value} isHeld={die.isHeld} holdDice={() => holdDice(die.id)} />)
+  const holdDice = (id) => {
+    console.log(id)
+    const dices = dice.map(die => die.id === id ? { ...die, isHeld: !die.isHeld } : die)
+    setDice(dices)
+    // console.log(dices)
+  }
+
+  const dices = dice.map(die => <Die key={die.id} value={die.value} isHeld={die.isHeld} holdDice={holdDice} id={die.id} />)
 
   function rollNewDice() {
     const newDices = (tenzies) ? (allNewDice) : (dice.map(die => die.isHeld ? die : { ...die, value: Math.ceil(Math.random() * 6) }))
@@ -33,12 +40,7 @@ function App() {
     setDice(newDices)
   }
 
-  function holdDice(id) {
-    console.log(id)
-    const dices = dice.map(die => die.id === id ? { ...die, isHeld: !die.isHeld } : die)
-    setDice(dices)
-    console.log(dices)
-  }
+
 
 
   useEffect(() => {
